@@ -30,8 +30,6 @@ export class JsonParserService {
   }
   public parse(jsonData: string): any {
     //parse the json data
-    console.log(jsonData);
-
     const data = JSON.parse(jsonData);
     // validate data against schema
     this.validateSchema(data);
