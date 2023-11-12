@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { MODULE_OPTIONS_TOKEN } from './dynamic-csv-parser.definition';
 type CsvParserConfigOptions = {
   allowedHeaders: string[];
   validatorFn: (record: any) => boolean;
@@ -11,7 +12,8 @@ export class CsvParserService {
   // private readonly transformerFn: (record: string) => any;
   // private readonly options: CsvParserConfigOptions;
   constructor(
-    @Inject('CONFIG_OPTIONS')
+    // @Inject('CONFIG_OPTIONS')
+    @Inject(MODULE_OPTIONS_TOKEN)
     private readonly configOptions: CsvParserConfigOptions,
   ) {
     const { allowedHeaders, validatorFn, transformerFn } = configOptions;

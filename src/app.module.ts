@@ -4,7 +4,10 @@ import { AppService } from './app.service';
 import { ApiModule } from './api-modules/api.module';
 import { EnvProxyModule } from './env-proxy-module/env-proxy.module';
 import { DynamicEnvProxyModule } from './dynamic-env-proxy-module/dynamic-env-proxy.module';
-import { CsvParserModule } from './csv-parser/csv-parser.module';
+import {
+  CsvParserModule,
+  DynamicCsvParserModule,
+} from './csv-parser/csv-parser.module';
 
 @Module({
   imports: [
@@ -12,7 +15,20 @@ import { CsvParserModule } from './csv-parser/csv-parser.module';
     EnvProxyModule,
     DynamicEnvProxyModule.register({ exclude: ['DATA'] }),
     // CsvParserModule,
-    CsvParserModule.register({
+    // CsvParserModule.register({
+    //   allowedHeaders: ['id', 'name', 'email'],
+    //   validatorFn: (record: any) => {
+    //     return record.id && record.name && record.email;
+    //   },
+    //   transformerFn: (csvData: any) => {
+    //     return {
+    //       ...csvData,
+    //       name: csvData.name.trim(),
+    //       email: csvData.email.trim(),
+    //     };
+    //   },
+    // }),
+    DynamicCsvParserModule.register({
       allowedHeaders: ['id', 'name', 'email'],
       validatorFn: (record: any) => {
         return record.id && record.name && record.email;

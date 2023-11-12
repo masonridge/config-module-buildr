@@ -1,5 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { CsvParserService } from './csv-parser.service';
+import { ConfigurableModuleClass } from './dynamic-csv-parser.definition';
 
 // @Module({
 //   providers: [
@@ -39,3 +40,8 @@ export class CsvParserModule {
     };
   }
 }
+@Module({
+  providers: [CsvParserService],
+  exports: [CsvParserService],
+})
+export class DynamicCsvParserModule extends ConfigurableModuleClass {}
