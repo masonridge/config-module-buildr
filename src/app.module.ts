@@ -8,11 +8,13 @@ import {
   CsvParserModule,
   DynamicCsvParserModule,
 } from './csv-parser/csv-parser.module';
+import { JsonParserModule } from './json-parser/json-parser.module';
 
 @Module({
   imports: [
     ApiModule,
     EnvProxyModule,
+    JsonParserModule,
     DynamicEnvProxyModule.register({ exclude: ['DATA'] }),
     // CsvParserModule,
     // CsvParserModule.register({
@@ -41,6 +43,7 @@ import {
         };
       },
     }),
+    JsonParserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,64 +1,21 @@
-# ConfigurableModulebuilder
+## Other practice
 
-Code is from https://medium.com/geekculture/how-to-use-configurable-module-builders-in-nest-js-v9-ae1f458fd6ca
+JsonParserService: Create a service that takes a JSON string, validates it against a schema, and transforms it into a different structure or format before returning it.
 
-Source code: https://github.com/agustinustheo/configurable-module-builder-example/tree/step-4-async
+XmlProcessorService: Implement a service that parses XML data, perhaps converts it to JSON, and then applies transformations or validations.
 
-## CSVParser
+FileStorageService: Build a service that handles the reading and writing of files to disk. You could extend it to handle different file formats and storage strategies.
 
-### service
+DataEncryptionService: Practice writing a service that encrypts and decrypts data. You can use Node.js's crypto module to encrypt data before saving it and decrypt it when reading it back.
 
-```ts
-import { Injectable, Inject } from '@nestjs/common';
+ImageResizerService: Create a service that takes image data as input, resizes it based on provided parameters, and returns the new image data.
 
-@Injectable()
-export class CsvParserService {
-  private readonly allowedHeaders: string[];
-  private readonly validatorFn: (record: any) => boolean;
-  private readonly transformerFn: (record: any) => any;
+DataNormalizationService: Develop a service that takes in "dirty" data, cleans it, normalizes it to a standard format, and returns the cleaned data.
 
-  constructor(@Inject('CONFIG_OPTIONS') private options: Record<string, any>) {
-    const { allowedHeaders, validatorFn, transformerFn } = options;
-    this.allowedHeaders = allowedHeaders;
-    this.validatorFn = validatorFn;
-    this.transformerFn = transformerFn;
-  }
+ApiIntegrationService: Write a service that acts as a client to a third-party API. It should handle the intricacies of API communication such as sending requests, handling responses, and error handling.
 
-  // A method to parse CSV data
-  public parse(csvData: string): any[] {
-    // Split the CSV data into an array of lines
-    const lines = csvData.split('\n');
-    // Extract the headers
-    const headers = lines.shift().split(',');
-    // Check if headers are allowed
-    if (!this.validateHeaders(headers)) {
-      throw new Error('Invalid CSV headers.');
-    }
-    // Parse the remaining lines
-    return lines.map((line) => this.parseLine(line, headers));
-  }
+AuthenticationService: Implement a service that handles user authentication. This could include checking credentials, generating tokens, and validating tokens.
 
-  private validateHeaders(headers: string[]): boolean {
-    // Here we check if the headers are all allowed
-    return headers.every((header) => this.allowedHeaders.includes(header));
-  }
+QueueService: Create a service that interfaces with a message queue. It could enqueue messages, process messages, and handle acknowledgments.
 
-  private parseLine(line: string, headers: string[]): any {
-    const record = {};
-    const values = line.split(',');
-
-    // Map the values to an object with headers as keys
-    headers.forEach((header, index) => {
-      record[header] = values[index];
-    });
-
-    // Validate the record using the provided validation function
-    if (!this.validatorFn(record)) {
-      throw new Error('Validation failed for record.');
-    }
-
-    // Transform the record using the provided transformation function
-    return this.transformerFn(record);
-  }
-}
-```
+LoggingService: Although NestJS has built-in logging functionality, you could create a more complex logging service that writes logs to various destinations (file, database, external monitoring service) and formats them differently.

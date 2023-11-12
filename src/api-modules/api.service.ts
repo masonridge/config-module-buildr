@@ -9,10 +9,12 @@ export class ApiService {
     private readonly dynamicEnvProxy: DynamicEnvProxyService,
   ) {}
   getHello(): string {
-    return this.envProxy.env.DATA;
+    return this.envProxy.env.DATA || '';
     return 'Hello World!';
   }
   getDynamicData(): string {
-    return this.dynamicEnvProxy.env.DATA ?? this.dynamicEnvProxy.env.DATA2;
+    return (
+      this.dynamicEnvProxy.env.DATA ?? (this.dynamicEnvProxy.env.DATA2 || '')
+    );
   }
 }

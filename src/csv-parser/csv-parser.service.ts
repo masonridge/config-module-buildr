@@ -32,10 +32,11 @@ export class CsvParserService {
   }
   public parse(csvData: string): any[] {
     const lines = csvData.split('\n').filter((item) => item.trim().length > 0);
-    const headers = lines
-      .shift()
-      .split(',')
-      .map((item) => item.trim());
+    const remain_lines = lines.shift();
+    if (!remain_lines) {
+      throw new Error('No data after header');
+    }
+    const headers = remain_lines.split(',').map((item) => item.trim());
     const is_same = this.validateHeaders(headers);
     if (!is_same) {
       throw new Error('Invalid CSV headers');
