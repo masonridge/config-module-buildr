@@ -11,7 +11,20 @@ import { CsvParserModule } from './csv-parser/csv-parser.module';
     ApiModule,
     EnvProxyModule,
     DynamicEnvProxyModule.register({ exclude: ['DATA'] }),
-    CsvParserModule,
+    // CsvParserModule,
+    CsvParserModule.register({
+      allowedHeaders: ['id', 'name', 'email'],
+      validatorFn: (record: any) => {
+        return record.id && record.name && record.email;
+      },
+      transformerFn: (csvData: any) => {
+        return {
+          ...csvData,
+          name: csvData.name.trim(),
+          email: csvData.email.trim(),
+        };
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
