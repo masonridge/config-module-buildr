@@ -9,6 +9,8 @@ import {
   DynamicCsvParserModule,
 } from './csv-parser/csv-parser.module';
 import { JsonParserModule } from './json-parser/json-parser.module';
+import { UsersService } from './dto/users.service';
+import { UsernameExistsConstraint } from './dto/username-exists.constraint';
 
 @Module({
   imports: [
@@ -46,6 +48,6 @@ import { JsonParserModule } from './json-parser/json-parser.module';
     JsonParserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UsersService, UsernameExistsConstraint],
 })
 export class AppModule {}

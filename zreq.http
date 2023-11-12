@@ -1,7 +1,16 @@
 ###
-GET http://localhost:3000/api HTTP/1.1
+GET http://localhost:3000 HTTP/1.1
 content-type: application/json
 
+###
+POST http://localhost:3000 HTTP/1.1
+content-type: application/json
+
+{
+  "id":1,
+  "name": "mak",
+  "email":"add"
+}
 ###
 GET http://localhost:3000/api/dynamic HTTP/1.1
 content-type: application/json

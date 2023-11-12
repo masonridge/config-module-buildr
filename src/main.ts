@@ -1,4 +1,6 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { useContainer } from 'class-validator';
 import { AppModule } from './app.module';
 import { CsvParserService } from './csv-parser/csv-parser.service';
 import { JsonParserService } from './json-parser/json-parser.service';
@@ -15,6 +17,8 @@ async function bootstrap() {
   console.log(
     jsonParserService.parse('{"id":1,"name":"mano","email":"mano@gmail.com"}'),
   );
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen(3000);
 }
 bootstrap();
